@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const auth = require("./middleware/auth");
 const path = require("path")
+const fs = require("fs");
 
 //
 const app = express();
@@ -81,12 +82,21 @@ app.use("/api", require("./routes/ad.route"));
 
 
 // Serve static files from React build
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-// Handle React routing - send all non-API requests to React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
+const buildPath = path.join(__dirname, 'client/build');
+if (fs.existsSync(buildPath)) {
+  app.use(express.static(buildPath));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
+} else {
+  console.log("Build folder not found. Running in API-only mode.");
+  app.get('/', (req, res) => {
+    res.json({ 
+      msg: "API is running",
+      note: "Frontend build not found. Please run 'npm run build' to build the React app."
+    });
+  });
 
 //
 app.get("*", (req, res) => {

@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "cd client && npm install && npm run build",
-    "heroku-postbuild": "npm run build"
+     "build": "echo 'Starting build...' && cd client && echo 'Installing client dependencies...' && npm install && echo 'Building React app...' && npm run build && echo 'Build complete!' && ls -la build/",
+    "postinstall": "cd client && npm install"
   },
   "keywords": [],
   "author": "",
