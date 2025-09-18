@@ -7,13 +7,15 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const auth = require("./middleware/auth");
+const path = require("path")
 
 //
 const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL || "https://native-earn.onrender.com",
+    methods: ["GET", "POST"]
   },
 });
 let users = [];
@@ -58,7 +60,11 @@ io.on("connection", (socket) => {
 //
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL || "https://native-earn.onrender.com",
+  credentials: true
+}));
+
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -72,6 +78,15 @@ app.use("/api", require("./routes/category.route"));
 app.use("/api", require("./routes/upload.route"));
 app.use("/api", require("./routes/product.route"));
 app.use("/api", require("./routes/ad.route"));
+
+
+// Serve static files from React build
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Handle React routing - send all non-API requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 //
 app.get("*", (req, res) => {
