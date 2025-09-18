@@ -97,6 +97,7 @@ if (fs.existsSync(buildPath)) {
       note: "Frontend build not found. Please run 'npm run build' to build the React app."
     });
   });
+}
 
 //
 app.get("*", (req, res) => {
