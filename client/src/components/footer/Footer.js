@@ -6,18 +6,18 @@ export default function Footer() {
         <div className="footer-text">
           made with &#10084; by{" "}
           <a
-            href="https://www.harshavarthan.ml/"
+            href="https://www.kasperneth.com/"
             target="_blank"
             rel="noreferrer"
           >
-            harsha
+            kasper
           </a>
         </div>
         <div className="social-icon">
           <ul>
             <li>
               <a
-                href="https://github.com/rpharshavarthan"
+                href="https://github.com/KasperNeth"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -28,7 +28,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://www.linkedin.com/in/harshavarthan/"
+                href="https://www.linkedin.com/in/kasperneth/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -39,7 +39,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="mailto:rpharshavarthan@gmail.com"
+                href="mailto:kasper@gmail.com"
                 target="_blank"
                 rel="noreferrer"
               >
