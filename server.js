@@ -86,15 +86,9 @@ const PORT = process.env.PORT || 5000;
 
 //
 mongoose
-  .connect(URI, {
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useFindAndModify: false,
-  })
+  .connect(URI)
   .then(() => console.log("connected to db successfully"))
   .catch((e) => console.log(e));
-
 //
 app.get("/", (req, res) => {
   res.json({ msg: "welcome" });
